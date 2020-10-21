@@ -28,7 +28,7 @@ class Solution {
             }else{
                 j--;
             }
-            System.out.println(area);
+
             if(area > maxArea){
                 maxArea = area;
             }
