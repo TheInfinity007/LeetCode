@@ -1,2 +1,2 @@
 # LeetCode
-Code from the leet code
+My Solutions for the codes from the leetCode platform.
