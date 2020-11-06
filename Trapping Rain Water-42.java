@@ -8,24 +8,36 @@ import java.util.*;
 
 class Solution {
     public int trap(int[] height) {
-        int i = 0, j, stillMax = 0, n2, len = height.length, val, x = 0, area = 0, water = 0, total;
-        for(i = 0; i < len-1;){
-            j = i+1;
-            while(j < len && height[j] < height[i]){
-                j++;
-            }
-
-            if(j < len && height[j] >= height[i]){
-                area = getArea(height, i+1, j, height[i]);
-                total = ((j-i-1) * height[i]);
-                if(total-area > 0) water += total-area;
-                i = j;
-            }else{
-                i++;
-            }
+        int water = 0, len = height.length;
+        int left[] = new int[len];
+        int right[] = new int[len];
+        int maxLeft = 0;
+        int maxRight = 0;
+        for(int i = 0; i < len; i++){
+            maxLeft = Math.max(maxLeft, height[i]);
+            left[i] = maxLeft;
+        }
             
+        for(int i = len-1; i >= 0; i--){
+            maxRight = Math.max(maxRight, height[i]);
+            right[i] = maxRight;
+        }
+            
+        
+        for(int i = 1; i < len-1; i++){
+            maxLeft = left[i-1];
+            maxRight = right[i+1];
+            int diff = Math.min(maxLeft, maxRight)-height[i];
+            water += diff >= 0 ? diff : 0;
         }
         return water;
+    }
+
+    public int calculateArea(){
+        int area = 0;
+
+
+        return area;
     }
 
     public int getArea(int [] height, int start, int end, int min){
