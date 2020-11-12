@@ -5,9 +5,13 @@ import java.util.*;
 
 class Main{
     public static void main(String[] args) {
-        // int res[][] = {{1,2}, {3,5},{6,7},{8,10}};
-        int res[][] = {{1,3},{6,9}};
-        int ans[][] = new Solution().insert(res, new int[]{2,5});
+        // int res[][] = {{1,2}, {3,5},{6,7},{8,10},{12,16}};      //{4,8}
+        // int res[][] = {{1,3},{6,9}};         // {2,5}
+        int res[][] = {};         // {5,7}
+        // int res[][] = {{1,5}};         // {2,7}
+        // int res[][] = {{1,5}};         // {6,8},
+        // int res[][] = {{1,5}};         // {0,3},
+        int ans[][] = new Solution().insert(res, new int[]{5,7});
         print(ans);
 
         
@@ -23,34 +27,38 @@ class Main{
 
 class Solution {
     public int[][] insert(int[][] intervals, int[] newInterval) {
-        int res[][] = new int[0][];
-        if(newInterval.length < 1) return intervals;
+        ArrayList<int[]> res = new ArrayList<int[]>();
 
-        ArrayList<ArrayList<Integer> arr = new ArrayList();
-        ArrayList <Integer> temp = new ArrayList<Integer>();
-        for(int i = 0; i < intervals.length; i++){
-            if(intervals[i][0] <= newInterval[0] && intervals[i][1] >= newInterval[0]){
-                if(temp.size() == 2){
-                    arr.add(temp);
-                    temp = new ArrayList<Integer>();
-                }
-                temp.add(Math.min(intervals[i][0], newInterval[0]));
-                temp.add(Math.max(intervals[i][1], newInterval[1]));
-            }else{
-                if(temp.size() == 2){
-                    arr.add(temp);
-                    temp = new ArrayList<Integer>();
-                }
-                temp.add(intervals[i][0]);
-                temp.add(intervals[i][1]);
+        // storing all the non overlaping
+        int i = 0, len = intervals.length;
+        while(i < len){
+            if(intervals[i][1] < newInterval[0]){
+                res.add(intervals[i]);
+            }else
+                break;
+            i++;
+        }
+
+        // new Main().print(res.toArray(new int[res.size()][2]));
+        // gathering all the overlaping 
+        while(i < len){
+            if(newInterval[1] >= intervals[i][0]){
+                newInterval[0] = Math.min(newInterval[0], intervals[i][0]);
+                newInterval[1] = Math.max(newInterval[1], intervals[i][1]);
             }
+            else
+                break;
+            i++;
         }
-        arr.add(temp);
-        res = new int[arr.size()][2];
-        for(int i = 0; i < arr.size(); i++){
-            res[i][0] = arr.get(i).get(0);
-            res[i][1] = arr.get(i).get(1);
+
+        res.add(newInterval);
+        // new Main().print(res.toArray(new int[res.size()][2]));
+
+        // gathering all the remaining non-overlaping 
+        while(i < len){
+            res.add(intervals[i]);
+            i++;
         }
-        return res;
+        return res.toArray(new int[res.size()][2]);
     }
 }
