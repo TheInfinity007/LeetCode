@@ -1,23 +1,16 @@
 public class test {
     public static void main(String[] args) {
-        String str = "123";
-        int num = strToNum(str);
-        System.out.println(num);
-    }
-
-    public static int strToNum(String str){
-        char [] charArr = str.toCharArray();
-        int value = 0;
-
-        for(int i = 0; i < str.length(); i++){
-            System.out.println(Integer.valueOf(charArr[i]-48) * Math.pow(10, i));
-            System.out.println(Character.getNumericValue(charArr[i]) + ">");
-            value = (value * 10) + (charArr[i]-'0');
-            System.out.println(value);
+        char []set = {'a', 'b', 'c'}; 
+        for(int counter = 0; counter < 3; counter++){
+            for(int j = 0; j < 3; j++){
+                System.out.print(counter + " " + j + " " + (1 << j) + " " + (counter&(1<<j)));
+                    if((counter&(1<<j)) > 0)
+                        System.out.println(" " + set[j]);
+                    else   
+                        System.out.println();
+            }
+            System.out.println();
         }
 
-
-        return value;
     }
-
 }
