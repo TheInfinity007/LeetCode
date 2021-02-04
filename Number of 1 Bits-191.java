@@ -1,3 +1,6 @@
+// Problem link
+// https://leetcode.com/problems/number-of-1-bits/
+
 public class Solution {
     // you need to treat n as an unsigned value
     public static void main(String[] args) {
@@ -16,7 +19,7 @@ public class Solution {
     }
 
     // more better than above
-    // bitwise & of n and n-1 will make the first 1 from the right side of n to 0
+    // bitwise & of n and n-1 will make the first 1 from the right side of n to 
     private int hammingWeightVersion2(int n){
         int count = 0;
         while(n != 0){
